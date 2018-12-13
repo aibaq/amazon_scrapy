@@ -51,9 +51,11 @@ LOG_LEVEL = 'INFO'
 
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
-SPIDER_MIDDLEWARES = {
-    'amazon.middlewares.AmazonSpiderMiddleware': 543,
-}
+# SPIDER_MIDDLEWARES = {
+#     'amazon.middlewares.AmazonSpiderMiddleware': 543,
+# }
+
+RANDOM_UA_PER_PROXY = True
 
 # Retry many times since proxies often fail
 RETRY_TIMES = 10
@@ -63,11 +65,11 @@ RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+    'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
     'scrapy.downloadermiddlewares.retry.RetryMiddleware': 90,
     'scrapy_proxies.RandomProxy': 100,
     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
-    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-    'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
 }
 
 PROXY_MODE = 0
